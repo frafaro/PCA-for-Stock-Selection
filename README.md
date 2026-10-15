@@ -2,7 +2,7 @@
 
 > *"Everyone says the market is too expensive. Is it still possible to find cheap stocks without compromising on quality?"*
 
-This project tries to answer that question with a quantitative approach: instead of looking at valuation multiples in isolation, we use **Principal Component Analysis (PCA)** to compress a large set of balance sheet indicators into a few interpretable scores — and then screen for companies that are **cheap, profitable and solvent at the same time**.
+This project tries to answer that question with a quantitative approach: instead of looking at valuation multiples in isolation, we use **Principal Component Analysis (PCA)** to compress a large set of balance sheet indicators into a few interpretable scores, then screen for companies that are **cheap, profitable and solvent at the same time**.
 
 The analysis is applied to the **healthcare companies of the S&P 500**, using balance sheet indicators and valuation multiples for each company (`HEALTHCARE_PCA.xlsx`).
 
@@ -29,14 +29,14 @@ The output is very informative: three distinct groups of correlated variables em
 2. **Performance indicators**
 3. **Liquidity indicators**
 
-One important finding: **Gross Margin and ROE are not strongly correlated with any other variable**, so they are excluded from the PCA — they would only add noise without belonging to any factor.
+One important finding: **Gross Margin and ROE are not strongly correlated with any other variable**, so they are excluded from the PCA (they would only add noise without belonging to any factor).
 
 ## 3. Running the PCA
 
 We run a PCA with:
 
-- `nfactors = 3` — the correlation plot already suggested three natural subgroups of variables;
-- `rotate = "varimax"` — the rotation makes each component load strongly on a distinct group of variables, making the factors much easier to interpret.
+- `nfactors = 3` : the correlation plot already suggested three natural subgroups of variables;
+- `rotate = "varimax"` : the rotation makes each component load strongly on a distinct group of variables, making the factors much easier to interpret.
 
 ![PCA output](images/PCA_output.png)
 
@@ -62,9 +62,9 @@ Now every company is summarized by just three meaningful numbers instead of a do
 
 The screen selects companies that satisfy all three conditions:
 
-- **Profitability > 0** — above-average performance
-- **Solvency > 0** — above-average liquidity
-- **Valuation < 0** — below-average multiples (i.e. *cheap*)
+- **Profitability > 0** : above average performance
+- **Solvency > 0** : above average liquidity
+- **Valuation < 0** : below-average multiples (i.e. *cheap*)
 
 An alternative approach is to rank all companies by quality first, take the best 10–15, and only then compare them on valuation. But if the goal is explicitly to find **cheap** stocks, the hard filter above is the right choice.
 
@@ -76,8 +76,8 @@ Finally we plot **Profitability vs Solvency**, coloring each company by its Valu
 
 How to read it:
 
-- **Upper-right quadrant**: the best companies — high profitability *and* high solvency.
+- **Upper-right quadrant**: the best companies with high profitability *and* high solvency.
 - **Green dots**: low multiples → *cheap*. **Red dots**: high multiples → *expensive*.
 - **Lower-left quadrant**: the weakest companies.
 
-The answer to the opening question lives in the upper-right quadrant: the **green dots in that region are quality companies trading at below-average multiples** — cheap stocks without compromising on quality.
+The answer to the opening question lives in the upper-right quadrant: the **green dots in that region are quality companies trading at below-average multiples**.
